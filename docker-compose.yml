@@ -15,7 +15,7 @@ services:
     volumes:
       - ./:/app/
     networks:
-      - teste-net
+      - api-net
 
   db:
     image: postgres:15
@@ -31,9 +31,15 @@ services:
     ports:
       - '5432:5432'
     networks:
-      - teste-net
+      - api-net
+
+  redis:
+    container_name: redis
+    image: redis:5
+    networks:
+      - api-net
 
 networks:
-  teste-net:
+  api-net:
 volumes:
   appdata:

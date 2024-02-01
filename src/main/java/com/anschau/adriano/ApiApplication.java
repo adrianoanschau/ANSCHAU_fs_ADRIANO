@@ -1,4 +1,4 @@
-package com.anschau.adriano.api;
+package com.anschau.adriano;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

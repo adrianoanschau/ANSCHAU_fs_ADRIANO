@@ -2,6 +2,8 @@ package com.anschau.adriano.Controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +19,10 @@ public class OrdersController {
     }
     
 	@RequestMapping("/orders")
-	public List<Order> home() {
-		return this.orderRepository.findAll();
+	public ResponseEntity<List<Order>> listOrders() {
+        List<Order> orders = this.orderRepository.findAll();
+
+		return ResponseEntity.status(HttpStatus.OK).body(orders);
 	}
     
 }

@@ -1,4 +1,4 @@
-package com.anschau.adriano.Controller;
+package com.anschau.adriano.Controllers;
 
 import java.util.List;
 

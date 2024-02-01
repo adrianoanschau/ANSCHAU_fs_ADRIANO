@@ -1,4 +1,4 @@
-package com.anschau.adriano.api;
+package com.anschau.adriano;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

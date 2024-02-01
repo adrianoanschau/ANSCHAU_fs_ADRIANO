@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
 
 	@RequestMapping("/")
-	public String home() {
+	public String welcome() {
 		return "Welcome to my App!";
 	}
 }

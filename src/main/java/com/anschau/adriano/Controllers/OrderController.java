@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.anschau.adriano.ApiResponse;
 import com.anschau.adriano.Entities.OrderEntity;
-import com.anschau.adriano.Services.OrdersService;
+import com.anschau.adriano.Services.OrderService;
 
 @RestController
-public class OrdersController {
-    private final OrdersService ordersService;
+public class OrderController {
+    private final OrderService ordersService;
 
-    public OrdersController(OrdersService ordersService) {
+    public OrderController(OrderService ordersService) {
         this.ordersService = ordersService;
     }
     

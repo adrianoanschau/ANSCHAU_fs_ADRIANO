@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.anschau.adriano.ApiResponse;
 import com.anschau.adriano.Entities.OrderEntity;
-import com.anschau.adriano.Services.OrdersService;
+import com.anschau.adriano.Services.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -30,10 +30,10 @@ public class OrdersApiTest {
     private MockMvc mockMvc;
     
     @MockBean
-    private OrdersService service;
+    private OrderService service;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private ObjectMapper mapper;
 
     @Test
     void shouldReturnApiResponseWithAllOrdersList() throws Exception {
@@ -51,7 +51,7 @@ public class OrdersApiTest {
         mockedResponse.setType("orders");
         mockedResponse.setData(mockedOrdersList);
 
-        String expectedResponseContent = objectMapper.writeValueAsString(mockedResponse);
+        String expectedResponseContent = mapper.writeValueAsString(mockedResponse);
 
         this.mockMvc.perform(get("/orders"))
             .andDo(print())

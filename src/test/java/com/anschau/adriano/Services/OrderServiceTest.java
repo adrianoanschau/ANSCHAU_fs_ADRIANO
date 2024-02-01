@@ -14,10 +14,10 @@ import com.anschau.adriano.Entities.OrderEntity;
 import com.anschau.adriano.Repositories.OrderRepository;
 
 @SpringBootTest
-public class OrdersServiceTest {
+public class OrderServiceTest {
 
     @Autowired
-    private OrdersService service;
+    private OrderService service;
     
     @MockBean
     private OrderRepository repository;

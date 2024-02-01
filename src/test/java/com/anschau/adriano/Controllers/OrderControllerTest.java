@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class OrdersControllerTest {
+public class OrderControllerTest {
 
     @Autowired
-    private OrdersController controller;
+    private OrderController controller;
 
     @Test
     void contextLoads() throws Exception {

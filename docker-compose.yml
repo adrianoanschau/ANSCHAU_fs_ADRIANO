@@ -1,0 +1,39 @@
+version: '3.5'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring-app-demo
+    env_file:
+      - .env
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    depends_on:
+      - db
+    volumes:
+      - ./:/app/
+    networks:
+      - teste-net
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_DATABASE_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PG_DATA: /var/lib/postgresql/data
+    container_name: postgres
+    volumes:
+      - appdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - teste-net
+
+networks:
+  teste-net:
+volumes:
+  appdata:

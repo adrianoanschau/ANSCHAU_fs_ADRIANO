@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.anschau.adriano.ApiResponse;
 import com.anschau.adriano.Entities.OrderEntity;
-import com.anschau.adriano.Repositories.OrderRepository;
+import com.anschau.adriano.Services.OrdersService;
 
 @RestController
 public class OrdersController {
-    private final OrderRepository orderRepository;
+    private final OrdersService ordersService;
 
-    public OrdersController(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public OrdersController(OrdersService ordersService) {
+        this.ordersService = ordersService;
     }
     
 	@RequestMapping("/orders")
@@ -24,7 +24,7 @@ public class OrdersController {
         ApiResponse<List<OrderEntity>> response = new ApiResponse<>();
 
         response.setType("orders");
-        response.setData(this.orderRepository.findAll());
+        response.setData(this.ordersService.findAll());
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

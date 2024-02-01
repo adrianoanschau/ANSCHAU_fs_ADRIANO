@@ -1,4 +1,4 @@
-package com.anschau.adriano.Resources;
+package com.anschau.adriano.Entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @Entity(name = "orders") @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class Order {
+public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

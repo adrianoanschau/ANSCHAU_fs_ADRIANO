@@ -7,8 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anschau.adriano.ApiResponse;
+import com.anschau.adriano.Entities.OrderEntity;
 import com.anschau.adriano.Repositories.OrderRepository;
-import com.anschau.adriano.Resources.Order;
 
 @RestController
 public class OrdersController {
@@ -19,10 +20,13 @@ public class OrdersController {
     }
     
 	@RequestMapping("/orders")
-	public ResponseEntity<List<Order>> listOrders() {
-        List<Order> orders = this.orderRepository.findAll();
+	public ResponseEntity<ApiResponse<List<OrderEntity>>> listOrders() {
+        ApiResponse<List<OrderEntity>> response = new ApiResponse<>();
 
-		return ResponseEntity.status(HttpStatus.OK).body(orders);
+        response.setType("orders");
+        response.setData(this.orderRepository.findAll());
+
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
     
 }

@@ -13,10 +13,10 @@ import com.anschau.adriano.Services.OrderService;
 
 @RestController
 public class OrderController {
-    private final OrderService ordersService;
+    private final OrderService orderService;
 
-    public OrderController(OrderService ordersService) {
-        this.ordersService = ordersService;
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
     
 	@RequestMapping("/orders")
@@ -24,7 +24,7 @@ public class OrderController {
         ApiResponse<List<OrderEntity>> response = new ApiResponse<>();
 
         response.setType("orders");
-        response.setData(this.ordersService.findAll());
+        response.setData(this.orderService.findAll());
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

@@ -15,7 +15,10 @@ public class CatalogService {
     }
 
     public LegacyProductEntity[] list() throws Exception {
-        LegacyProductEntity[] products = this.legacyConsumerService.listOfProducts();
+        return list("1");
+    }
+    public LegacyProductEntity[] list(String page) throws Exception {
+        LegacyProductEntity[] products = this.legacyConsumerService.listOfProducts(page == null ? "1" : page);
 
         return products;
     }

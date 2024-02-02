@@ -25,10 +25,11 @@ public class LegacyConsumerService {
     }
     
     @Cacheable(value = "legacy-products")
-    public LegacyProductEntity[] listOfProducts() throws Exception {
-        Mono<LegacyProductEntity[]> responseEntity = this.webClient.get().uri("/products").retrieve().bodyToMono(LegacyProductEntity[].class);
-        LegacyProductEntity[] response = responseEntity.block();
+    public LegacyProductEntity[] listOfProducts(String page) throws Exception {
+        Mono<LegacyProductEntity[]> responseEntity = this.webClient.get()
+            .uri(String.format("/products?page=%s&limit=10", page))
+            .retrieve().bodyToMono(LegacyProductEntity[].class);
 
-        return response;
+        return responseEntity.block();
     }
 }

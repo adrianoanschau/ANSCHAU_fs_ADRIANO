@@ -20,12 +20,10 @@ public class CatalogController {
     
 	@GetMapping("/catalog")
 	public ResponseEntity<ApiResponse<LegacyProductEntity[]>> listOrders(@RequestParam(required = false) String page) throws Exception {
-        ApiResponse<LegacyProductEntity[]> response = new ApiResponse<>();
-
-        response.setType("legacy-products");
-        response.setData(this.catalogService.list(page));
-
-		return ResponseEntity.status(HttpStatus.OK).body(response);
+        LegacyProductEntity[] response = this.catalogService.list(page);
+        
+		return ResponseEntity.status(HttpStatus.OK)
+            .body(ApiResponse.create("legacy-products", response));
 	}
     
 }

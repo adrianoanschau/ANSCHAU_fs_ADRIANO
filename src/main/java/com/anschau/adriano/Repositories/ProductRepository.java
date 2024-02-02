@@ -5,8 +5,8 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.anschau.adriano.Entities.OrderEntity;
+import com.anschau.adriano.Entities.ProductEntity;
 
 @Repository
-public interface OrderRepository extends JpaRepository<OrderEntity, UUID> {
+public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
 }

@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anschau.adriano.ApiResponse;
+import com.anschau.adriano.DTO.CreateOrderDTO;
 import com.anschau.adriano.Entities.OrderEntity;
 import com.anschau.adriano.Services.OrderService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 public class OrderController {
@@ -19,14 +23,22 @@ public class OrderController {
         this.orderService = orderService;
     }
     
-	@RequestMapping("/orders")
+	@GetMapping("/orders")
 	public ResponseEntity<ApiResponse<List<OrderEntity>>> listOrders() {
-        ApiResponse<List<OrderEntity>> response = new ApiResponse<>();
 
-        response.setType("orders");
-        response.setData(this.orderService.findAll());
+        List<OrderEntity> orders = this.orderService.findAll();
 
-		return ResponseEntity.status(HttpStatus.OK).body(response);
+		return ResponseEntity.status(HttpStatus.OK)
+            .body(ApiResponse.create("orders", orders));
 	}
+
+    @PostMapping("/orders")
+    public ResponseEntity<ApiResponse<OrderEntity>> createOrder(@RequestBody CreateOrderDTO body) {
+
+        OrderEntity order = this.orderService.createOrderWithProducts(body.getProducts());
+
+		return ResponseEntity.status(HttpStatus.CREATED)
+            .body(ApiResponse.create("orders", order));
+    }
     
 }

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anschau.adriano.ApiResponse;
+import com.anschau.adriano.Legacy.LegacyProductEntity;
 import com.anschau.adriano.Services.CatalogService;
 
 @RestController
@@ -17,10 +18,10 @@ public class CatalogController {
     }
     
 	@RequestMapping("/catalog")
-	public ResponseEntity<ApiResponse<String>> listOrders() {
-        ApiResponse<String> response = new ApiResponse<>();
+	public ResponseEntity<ApiResponse<LegacyProductEntity[]>> listOrders() throws Exception {
+        ApiResponse<LegacyProductEntity[]> response = new ApiResponse<>();
 
-        response.setType("catalog");
+        response.setType("legacy-products");
         response.setData(this.catalogService.list());
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);

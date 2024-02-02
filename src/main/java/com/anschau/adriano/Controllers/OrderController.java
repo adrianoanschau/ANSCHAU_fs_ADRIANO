@@ -1,10 +1,13 @@
 package com.anschau.adriano.Controllers;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anschau.adriano.ApiResponse;
@@ -13,6 +16,8 @@ import com.anschau.adriano.Entities.OrderEntity;
 import com.anschau.adriano.Services.OrderService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -24,7 +29,7 @@ public class OrderController {
     }
     
 	@GetMapping("/orders")
-	public ResponseEntity<ApiResponse<List<OrderEntity>>> listOrders() {
+	public ResponseEntity<ApiResponse<List<OrderEntity>>> listOrders() throws Exception {
 
         List<OrderEntity> orders = this.orderService.findAll();
 
@@ -33,11 +38,20 @@ public class OrderController {
 	}
 
     @PostMapping("/orders")
-    public ResponseEntity<ApiResponse<OrderEntity>> createOrder(@RequestBody CreateOrderDTO body) {
+    public ResponseEntity<ApiResponse<OrderEntity>> createOrder(@RequestBody CreateOrderDTO body) throws Exception {
 
         OrderEntity order = this.orderService.createOrderWithProducts(body.getProducts());
 
 		return ResponseEntity.status(HttpStatus.CREATED)
+            .body(ApiResponse.create("orders", order));
+    }
+
+    @GetMapping("/orders/{id}")
+    public ResponseEntity<ApiResponse<Optional<OrderEntity>>> getMethodName(@PathVariable UUID id) throws Exception {
+
+        Optional<OrderEntity> order = this.orderService.findOne(id);
+
+		return ResponseEntity.status(HttpStatus.OK)
             .body(ApiResponse.create("orders", order));
     }
     

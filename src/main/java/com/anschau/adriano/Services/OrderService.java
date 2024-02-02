@@ -2,6 +2,8 @@ package com.anschau.adriano.Services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -18,11 +20,11 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
     
-	public List<OrderEntity> findAll() {
+	public List<OrderEntity> findAll() throws Exception {
         return this.orderRepository.findAll();
 	}
 
-    public OrderEntity createOrderWithProducts(List<CreateProductDTO> productsList) {
+    public OrderEntity createOrderWithProducts(List<CreateProductDTO> productsList) throws Exception {
         OrderEntity order = new OrderEntity();
         List<ProductEntity> products = new ArrayList();
 
@@ -38,6 +40,10 @@ public class OrderService {
         order.setProducts(products);
 
         return this.orderRepository.saveAndFlush(order);
+    }
+
+    public Optional<OrderEntity> findOne(UUID id) throws Exception {
+        return this.orderRepository.findById(id);
     }
     
 }

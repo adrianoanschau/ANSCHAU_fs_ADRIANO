@@ -8,9 +8,11 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
+import com.anschau.adriano.Legacy.LegacyConsumerService;
+
 @Configuration
 @EnableCaching
-public class RedisConfig {
+public class AppConfig {
 
 	@Bean
 	JedisConnectionFactory redisConnectionFactory() {
@@ -24,5 +26,10 @@ public class RedisConfig {
 		template.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
 
 		return template;
+	}
+
+	@Bean
+	LegacyConsumerService legacyConsumerService() {
+		return new LegacyConsumerService("https://65bce235b51f9b29e9327d3d.mockapi.io");
 	}
 }

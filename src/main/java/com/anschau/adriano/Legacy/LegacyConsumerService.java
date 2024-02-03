@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpHeaders;
@@ -24,8 +25,9 @@ public class LegacyConsumerService {
     @Resource(name = "redisTemplate")
     private ValueOperations<String, Object> valueOps;
 
-    public LegacyConsumerService(WebClient.Builder webClientBuilder) {
-		this.webClient = webClientBuilder.baseUrl("https://65bce235b51f9b29e9327d3d.mockapi.io")
+    public LegacyConsumerService(String baseUrl) {
+		this.webClient = WebClient.builder()
+            .baseUrl(baseUrl)
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .build();
     }

@@ -38,7 +38,7 @@ public class OrderController {
     @PostMapping("/orders")
     public ResponseEntity<ApiResponse<OrderEntity>> createOrder(@RequestBody CreateOrderDTO body) throws Exception {
 
-        OrderEntity order = this.orderService.createOrderWithProducts(body.getProducts());
+        OrderEntity order = this.orderService.create(body.getProducts());
 
 		return ResponseEntity.status(HttpStatus.CREATED)
             .body(ApiResponse.build("orders", order));
@@ -64,7 +64,7 @@ public class OrderController {
         boolean result = this.orderService.delete(id);
 
         if (!result) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ApiResponse.build("orders", "An error occurred while removing the order"));
         }
 

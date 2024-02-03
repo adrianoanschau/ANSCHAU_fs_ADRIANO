@@ -35,7 +35,7 @@ public class CatalogControllerTest {
         List<LegacyProductEntity> mockedLegacyProductsList = TestDataFactory.mockLegacyProductEntityList(10);
         Mockito.doReturn(mockedLegacyProductsList).when(service).list(page);
         
-        TestDataFactory.assertResponse(
+        TestDataFactory.assertResponseEntity(
             HttpStatus.OK,
             controller.listProducts(page),
             ApiResponse.build("legacy-products", mockedLegacyProductsList)

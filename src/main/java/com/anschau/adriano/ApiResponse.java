@@ -1,9 +1,8 @@
 package com.anschau.adriano;
 
 import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
+@Getter
 public class ApiResponse<T> {
     private String type;
     private T data;
@@ -27,10 +26,5 @@ public class ApiResponse<T> {
 
     public static <T> ApiResponse<T> build(String type, String message) {
         return new ApiResponse<T>(type, message);
-    }
-
-    @Override
-    public String toString() {
-        return "ApiResponse { type = " + type + ", message = " + message + ", data = " + data + " }";
     }
 }

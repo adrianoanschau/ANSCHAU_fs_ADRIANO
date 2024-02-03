@@ -1,5 +1,7 @@
 package com.anschau.adriano.Services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.anschau.adriano.Legacy.LegacyConsumerService;
@@ -14,12 +16,10 @@ public class CatalogService {
         this.legacyConsumerService = legacyConsumerService;
     }
 
-    public LegacyProductEntity[] list() throws Exception {
+    public List<LegacyProductEntity> list() throws Exception {
         return list("1");
     }
-    public LegacyProductEntity[] list(String page) throws Exception {
-        LegacyProductEntity[] products = this.legacyConsumerService.listOfProducts(page == null ? "1" : page);
-
-        return products;
+    public List<LegacyProductEntity> list(String page) throws Exception {
+        return this.legacyConsumerService.listOfProducts(page == null ? "1" : page);
     }
 }

@@ -1,5 +1,7 @@
 package com.anschau.adriano.Controllers;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +21,8 @@ public class CatalogController {
     }
     
 	@GetMapping("/catalog")
-	public ResponseEntity<ApiResponse<LegacyProductEntity[]>> listOrders(@RequestParam(required = false) String page) throws Exception {
-        LegacyProductEntity[] response = this.catalogService.list(page);
+	public ResponseEntity<ApiResponse<List<LegacyProductEntity>>> listProducts(@RequestParam(required = false) String page) throws Exception {
+        List<LegacyProductEntity> response = this.catalogService.list(page);
         
 		return ResponseEntity.status(HttpStatus.OK)
             .body(ApiResponse.build("legacy-products", response));

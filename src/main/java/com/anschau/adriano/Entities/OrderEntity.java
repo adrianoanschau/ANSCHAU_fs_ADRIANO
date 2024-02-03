@@ -24,9 +24,4 @@ public class OrderEntity implements Serializable {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductEntity> products;
-
-    @Override
-    public String toString() {
-        return "OrderEntity { id = " + id + ", products = " + products + " }";
-    }
 }

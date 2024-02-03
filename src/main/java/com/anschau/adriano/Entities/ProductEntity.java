@@ -37,9 +37,4 @@ public class ProductEntity implements Serializable {
 
     @Column(nullable = false)
     private Long externalId;
-
-    @Override
-    public String toString() {
-        return "ProductEntity { id = " + id + ", name = " + name + ", externalId = " + externalId + " }";
-    }
 }

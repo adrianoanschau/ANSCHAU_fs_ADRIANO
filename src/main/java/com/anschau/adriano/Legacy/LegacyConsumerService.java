@@ -1,11 +1,17 @@
 package com.anschau.adriano.Legacy;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.annotation.Resource;
 import reactor.core.publisher.Mono;
@@ -25,11 +31,15 @@ public class LegacyConsumerService {
     }
     
     @Cacheable(value = "legacy-products")
-    public LegacyProductEntity[] listOfProducts(String page) throws Exception {
+    public List<LegacyProductEntity> listOfProducts(String page) throws Exception {
         Mono<LegacyProductEntity[]> responseEntity = this.webClient.get()
             .uri(String.format("/products?page=%s&limit=10", page))
             .retrieve().bodyToMono(LegacyProductEntity[].class);
 
-        return responseEntity.block();
+        ObjectMapper mapper = new ObjectMapper();
+
+        return Arrays.stream(responseEntity.block())
+            .map(object -> mapper.convertValue(object, LegacyProductEntity.class))
+            .collect(Collectors.toList());
     }
 }

@@ -45,18 +45,28 @@ public class OrderController {
     }
 
     @GetMapping("/orders/{id}")
-    public ResponseEntity<ApiResponse<Optional<OrderEntity>>> getOrder(@PathVariable UUID id) throws Exception {
+    public ResponseEntity<ApiResponse<OrderEntity>> getOrder(@PathVariable UUID id) throws Exception {
 
         Optional<OrderEntity> order = this.orderService.findOne(id);
 
+        if (!order.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.build("orders", "Order Not Found"));
+        }
+
 		return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.build("orders", order));
+            .body(ApiResponse.build("orders", order.get()));
     }
 
     @DeleteMapping("/orders/{id}")
     public ResponseEntity<ApiResponse<String>> deleteOrder(@PathVariable UUID id) throws Exception {
 
-        this.orderService.delete(id);
+        boolean result = this.orderService.delete(id);
+
+        if (!result) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                .body(ApiResponse.build("orders", "An error occurred while removing the order"));
+        }
 
 		return ResponseEntity.status(HttpStatus.OK)
             .body(ApiResponse.build("orders", "Order Deleted"));

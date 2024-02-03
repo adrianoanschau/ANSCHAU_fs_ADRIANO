@@ -45,5 +45,9 @@ public class OrderService {
     public Optional<OrderEntity> findOne(UUID id) throws Exception {
         return this.orderRepository.findById(id);
     }
+
+    public void delete(UUID id) throws Exception {
+        this.orderRepository.deleteById(id);
+    }
     
 }

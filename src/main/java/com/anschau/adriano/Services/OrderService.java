@@ -46,8 +46,15 @@ public class OrderService {
         return this.orderRepository.findById(id);
     }
 
-    public void delete(UUID id) throws Exception {
-        this.orderRepository.deleteById(id);
+    public boolean delete(UUID id) throws Exception {
+        try {
+            this.orderRepository.deleteById(id);
+
+            return true;
+            
+        } catch (Exception e) {
+            return false;
+        }
     }
     
 }

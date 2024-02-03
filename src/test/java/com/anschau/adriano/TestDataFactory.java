@@ -17,20 +17,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TestDataFactory {
 
-    public static <T> void assertResponse(
+    public static <R, M> void assertStringResponse(R response, M mockedResponse) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        
+        String responseContent = mapper.writeValueAsString(response);
+        String expectedResponseContent = mapper.writeValueAsString(mockedResponse);
+        
+        Assertions.assertThat(responseContent).isEqualTo(expectedResponseContent);
+    }
+
+    public static <T> void assertResponseEntity(
             HttpStatus httpStatus,
             ResponseEntity<T> response,
             T mockedResponse
         ) throws Exception {
-
-        ObjectMapper mapper = new ObjectMapper();
-        
-        String responseContent = mapper.writeValueAsString(response.getBody());
-        String expectedResponseContent = mapper.writeValueAsString(mockedResponse);
-
         Assertions.assertThat(response).isNotNull();
         Assertions.assertThat(response.getStatusCode()).isEqualTo(httpStatus);
-        Assertions.assertThat(responseContent).isEqualTo(expectedResponseContent);
+        
+        TestDataFactory.assertStringResponse(response.getBody(), mockedResponse);
     }
 
     public static CreateOrderDTO mockCreateOrderDTO(int size) {
@@ -72,29 +76,33 @@ public class TestDataFactory {
         return entity;
     }
 
-    public static OrderEntity mockOrderEntity(CreateOrderDTO orderDTO) {
+    public static OrderEntity mockOrderEntity(CreateOrderDTO orderDTO, boolean withoutIds) {
         OrderEntity entity = new OrderEntity();
-        entity.setId(UUID.randomUUID());
+        if (!withoutIds) {
+            entity.setId(UUID.randomUUID());
+        }
 
-        List<ProductEntity> productEntityList = TestDataFactory.mockProductsEntityList(orderDTO.getProducts(), entity);
+        List<ProductEntity> productEntityList = TestDataFactory.mockProductsEntityList(orderDTO.getProducts(), entity, withoutIds);
         entity.setProducts(productEntityList);
 
         return entity;
     }
 
-    public static List<ProductEntity> mockProductsEntityList(List<CreateProductDTO> products, OrderEntity order) {
+    public static List<ProductEntity> mockProductsEntityList(List<CreateProductDTO> products, OrderEntity order, boolean withoutIds) {
         List<ProductEntity> list = new ArrayList<>();
 
         for (CreateProductDTO product : products) {
-            list.add(TestDataFactory.mockProductEntity(product, order));
+            list.add(TestDataFactory.mockProductEntity(product, order, withoutIds));
         }
 
         return list;
     }
 
-    public static ProductEntity mockProductEntity(CreateProductDTO product, OrderEntity order) {
+    public static ProductEntity mockProductEntity(CreateProductDTO product, OrderEntity order, boolean withoutIds) {
         ProductEntity entity = new ProductEntity();
-        entity.setId(UUID.randomUUID());
+        if (!withoutIds) {
+            entity.setId(UUID.randomUUID());
+        }
         entity.setOrder(order);
         entity.setName(product.getName());
         entity.setExternalId(product.getId());

@@ -24,7 +24,7 @@ public class OrderService {
         return this.orderRepository.findAll();
 	}
 
-    public OrderEntity createOrderWithProducts(List<CreateProductDTO> productsList) throws Exception {
+    public OrderEntity create(List<CreateProductDTO> productsList) throws Exception {
         OrderEntity order = new OrderEntity();
         List<ProductEntity> products = new ArrayList();
 

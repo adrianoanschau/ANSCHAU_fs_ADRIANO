@@ -18,3 +18,5 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+legacy:
+  base-url: https://65bce235b51f9b29e9327d3d.mockapi.io

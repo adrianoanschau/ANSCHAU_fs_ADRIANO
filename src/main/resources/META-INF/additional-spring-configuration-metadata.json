@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "legacy.base-url",
+    "type": "java.lang.String",
+    "description": "A description for 'legacy.base-url'"
+  },
+  {
+    "name": "spring.cache.host",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cache.host'"
+  },
+  {
+    "name": "spring.cache.port",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cache.port'"
+  }
+]}

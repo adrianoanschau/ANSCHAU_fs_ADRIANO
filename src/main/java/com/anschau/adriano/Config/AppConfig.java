@@ -3,6 +3,7 @@ package com.anschau.adriano.Config;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -29,7 +30,7 @@ public class AppConfig {
 	}
 
 	@Bean
-	LegacyConsumerService legacyConsumerService() {
-		return new LegacyConsumerService("https://65bce235b51f9b29e9327d3d.mockapi.io");
+	LegacyConsumerService legacyConsumerService(Environment environment) {
+		return new LegacyConsumerService(environment.getProperty("legacy.base-url"));
 	}
 }

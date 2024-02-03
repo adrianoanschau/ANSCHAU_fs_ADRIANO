@@ -1,0 +1,31 @@
+meta {
+  name: Create One
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/orders
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "products": [
+      {
+        "id": 1,
+        "name": "Product 1"
+      },
+      {
+        "id": 2,
+        "name": "Product 2"
+      }
+    ]
+  }
+}
+
+body:multipart-form {
+  products[]: 1
+  products[]: 2
+}

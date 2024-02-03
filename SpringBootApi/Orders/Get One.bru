@@ -1,0 +1,31 @@
+meta {
+  name: Get One
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:8080/orders/5aa7d633-2b04-4f6e-993c-09c5b1406509
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "products": [
+      {
+        "id": 1,
+        "name": "Product 1"
+      },
+      {
+        "id": 2,
+        "name": "Product 2"
+      }
+    ]
+  }
+}
+
+body:multipart-form {
+  products[]: 1
+  products[]: 2
+}

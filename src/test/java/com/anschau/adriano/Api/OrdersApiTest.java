@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -39,17 +40,15 @@ public class OrdersApiTest {
     void shouldReturnApiResponseWithAllOrdersList() throws Exception {
 
         OrderEntity mockedOrderEntity = new OrderEntity();
-        mockedOrderEntity.setId((long) 1);
-        mockedOrderEntity.setName("Order 1");
+        UUID orderId = UUID.randomUUID();
+        mockedOrderEntity.setId(orderId);
 
         List<OrderEntity> mockedOrdersList = new ArrayList<>();
         mockedOrdersList.add(mockedOrderEntity);
 
         Mockito.doReturn(mockedOrdersList).when(service).findAll();
         
-        ApiResponse<List<OrderEntity>> mockedResponse = new ApiResponse<>();
-        mockedResponse.setType("orders");
-        mockedResponse.setData(mockedOrdersList);
+        ApiResponse<List<OrderEntity>> mockedResponse = ApiResponse.build("orders", mockedOrdersList);
 
         String expectedResponseContent = mapper.writeValueAsString(mockedResponse);
 

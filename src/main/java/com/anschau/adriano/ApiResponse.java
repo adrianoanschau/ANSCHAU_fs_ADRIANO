@@ -21,11 +21,16 @@ public class ApiResponse<T> {
         this.data = null;
     }
 
-    public static <T> ApiResponse<T> create(String type, T data) {
+    public static <T> ApiResponse<T> build(String type, T data) {
         return new ApiResponse<T>(type, data);
     }
 
-    public static <T> ApiResponse<T> create(String type, String message) {
+    public static <T> ApiResponse<T> build(String type, String message) {
         return new ApiResponse<T>(type, message);
+    }
+
+    @Override
+    public String toString() {
+        return "ApiResponse { type = " + type + ", message = " + message + ", data = " + data + " }";
     }
 }

@@ -11,11 +11,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "products")
 public class ProductEntity implements Serializable {
     @Id
@@ -32,4 +37,9 @@ public class ProductEntity implements Serializable {
 
     @Column(nullable = false)
     private Long externalId;
+
+    @Override
+    public String toString() {
+        return "ProductEntity { id = " + id + ", name = " + name + ", externalId = " + externalId + " }";
+    }
 }

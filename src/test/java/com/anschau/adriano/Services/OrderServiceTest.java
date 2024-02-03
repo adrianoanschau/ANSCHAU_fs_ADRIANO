@@ -2,6 +2,7 @@ package com.anschau.adriano.Services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,8 @@ public class OrderServiceTest {
     @Test
     void shouldReturnAllOrdersList() throws Exception {
         OrderEntity mockedOrderEntity = new OrderEntity();
-        mockedOrderEntity.setId((long) 1);
-        mockedOrderEntity.setName("Order 1");
+        UUID orderId = UUID.randomUUID();
+        mockedOrderEntity.setId(orderId);
 
         List<OrderEntity> mockedOrdersList = new ArrayList<>();
         mockedOrdersList.add(mockedOrderEntity);

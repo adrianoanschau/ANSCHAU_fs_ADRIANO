@@ -23,7 +23,7 @@ public class CatalogController {
         LegacyProductEntity[] response = this.catalogService.list(page);
         
 		return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.create("legacy-products", response));
+            .body(ApiResponse.build("legacy-products", response));
 	}
     
 }

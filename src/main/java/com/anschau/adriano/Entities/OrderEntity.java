@@ -11,9 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity(name = "orders")
 public class OrderEntity implements Serializable {
     @Id
@@ -22,4 +24,9 @@ public class OrderEntity implements Serializable {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductEntity> products;
+
+    @Override
+    public String toString() {
+        return "OrderEntity { id = " + id + ", products = " + products + " }";
+    }
 }

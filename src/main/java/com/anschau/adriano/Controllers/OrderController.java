@@ -32,7 +32,7 @@ public class OrderController {
         List<OrderEntity> orders = this.orderService.findAll();
 
 		return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.create("orders", orders));
+            .body(ApiResponse.build("orders", orders));
 	}
 
     @PostMapping("/orders")
@@ -41,7 +41,7 @@ public class OrderController {
         OrderEntity order = this.orderService.createOrderWithProducts(body.getProducts());
 
 		return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ApiResponse.create("orders", order));
+            .body(ApiResponse.build("orders", order));
     }
 
     @GetMapping("/orders/{id}")
@@ -50,7 +50,7 @@ public class OrderController {
         Optional<OrderEntity> order = this.orderService.findOne(id);
 
 		return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.create("orders", order));
+            .body(ApiResponse.build("orders", order));
     }
 
     @DeleteMapping("/orders/{id}")
@@ -59,7 +59,7 @@ public class OrderController {
         this.orderService.delete(id);
 
 		return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.create("orders", "Order Deleted"));
+            .body(ApiResponse.build("orders", "Order Deleted"));
     }
     
 }

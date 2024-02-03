@@ -37,7 +37,7 @@ public class OrderControllerTest {
         List<OrderEntity> mockedOrdersList = TestDataFactory.mockOrderEntityList(10);
         Mockito.doReturn(mockedOrdersList).when(service).findAll();
         
-        TestDataFactory.assertResponse(
+        TestDataFactory.assertResponseEntity(
             HttpStatus.OK,
             controller.listOrders(),
             ApiResponse.build("orders", mockedOrdersList)
@@ -45,12 +45,12 @@ public class OrderControllerTest {
     }
 
     @Test
-    void shouldCreateAndReturnOneOrderWithProductsWhenCallCreateOrder() throws Exception {
+    void shouldCreateAndReturnOneOrderWhenCallCreateOrder() throws Exception {
         CreateOrderDTO mockedOrderDTO = TestDataFactory.mockCreateOrderDTO(10);
-        OrderEntity mockedOrderEntity = TestDataFactory.mockOrderEntity(mockedOrderDTO);
-        Mockito.doReturn(mockedOrderEntity).when(service).createOrderWithProducts(mockedOrderDTO.getProducts());
+        OrderEntity mockedOrderEntity = TestDataFactory.mockOrderEntity(mockedOrderDTO, false);
+        Mockito.doReturn(mockedOrderEntity).when(service).create(mockedOrderDTO.getProducts());
         
-        TestDataFactory.assertResponse(
+        TestDataFactory.assertResponseEntity(
             HttpStatus.CREATED,
             controller.createOrder(mockedOrderDTO),
             ApiResponse.build("orders", mockedOrderEntity)
@@ -58,11 +58,11 @@ public class OrderControllerTest {
     }
 
     @Test
-    void shouldReturnOneOrderWithProductsWhenCallGetOrder() throws Exception {
+    void shouldReturnOneOrderWhenCallGetOrder() throws Exception {
         OrderEntity mockedOrderEntity = TestDataFactory.mockOrderEntity();
         Mockito.doReturn(Optional.of(mockedOrderEntity)).when(service).findOne(mockedOrderEntity.getId());
         
-        TestDataFactory.assertResponse(
+        TestDataFactory.assertResponseEntity(
             HttpStatus.OK,
             controller.getOrder(mockedOrderEntity.getId()),
             ApiResponse.build("orders", mockedOrderEntity)
@@ -70,11 +70,11 @@ public class OrderControllerTest {
     }
 
     @Test
-    void shouldReturnNotFoundWhenCallGetOrderWithInexistentOrderId() throws Exception {
+    void shouldReturnErrorWhenCallGetOrderWithInexistentOrderId() throws Exception {
         UUID inexistentOrderId = UUID.randomUUID();
         Mockito.doReturn(Optional.ofNullable(null)).when(service).findOne(inexistentOrderId);
         
-        TestDataFactory.assertResponse(
+        TestDataFactory.assertResponseEntity(
             HttpStatus.NOT_FOUND,
             controller.getOrder(inexistentOrderId),
             ApiResponse.build("orders", "Order Not Found")
@@ -86,7 +86,7 @@ public class OrderControllerTest {
         OrderEntity mockedOrderEntity = TestDataFactory.mockOrderEntity();
         Mockito.doReturn(true).when(service).delete(mockedOrderEntity.getId());
         
-        TestDataFactory.assertResponse(
+        TestDataFactory.assertResponseEntity(
             HttpStatus.OK,
             controller.deleteOrder(mockedOrderEntity.getId()),
             ApiResponse.build("orders", "Order Deleted")
@@ -98,8 +98,8 @@ public class OrderControllerTest {
         UUID inexistentOrderId = UUID.randomUUID();
         Mockito.doReturn(false).when(service).delete(inexistentOrderId);
         
-        TestDataFactory.assertResponse(
-            HttpStatus.BAD_GATEWAY,
+        TestDataFactory.assertResponseEntity(
+            HttpStatus.BAD_REQUEST,
             controller.deleteOrder(inexistentOrderId),
             ApiResponse.build("orders", "An error occurred while removing the order")
         );

@@ -3,6 +3,7 @@ import CartIcon from "../icons/CartIcon";
 import { useCartContext } from "../../contexts/cart";
 import ItemCartControls from "./ItemCartControls";
 import CartResetControls from "./CartRestControls";
+import CreateOrderControls from "./CreateOrderControls";
 
 export default function DropdownCart() {
   const { cart, addItemToCart, removeItemFromCart, resetCart } =
@@ -64,7 +65,8 @@ export default function DropdownCart() {
             </li>
           ))}
           {!!cart.length && (
-            <li className="flex justify-end border-t p-4">
+            <li className="flex justify-between border-t p-4">
+              <CreateOrderControls onCreate={() => {}} />
               <CartResetControls onReset={() => resetCart()} />
             </li>
           )}

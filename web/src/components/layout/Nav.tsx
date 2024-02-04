@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import DropdownCart from "../DropdownCart";
 
-export default function DesktopNav() {
+export default function Nav() {
   return (
     <div className="block w-full flex-grow lg:flex lg:w-auto lg:items-center">
       <div className="text-sm lg:flex-grow">

@@ -12,7 +12,7 @@ export default function ProductCard({
   const { name, brand, price, oldPrice } = product;
 
   return (
-    <div className="w-72 rounded-xl bg-white shadow-md duration-500 hover:scale-105 hover:shadow-xl">
+    <div className="w-72 rounded-xl bg-white shadow-md duration-500 hover:shadow-2xl">
       <div className="border-b-2 border-neutral-100 px-6 py-3">
         <span className="mr-3 text-xs uppercase text-gray-400">{brand}</span>
       </div>

@@ -1,8 +1,7 @@
-import { ProductEntity } from "../../../../types/ProductEntity";
 import ProductCard from "./ProductCard";
 
 type ProductCardListProps = {
-  products: Array<ProductEntity>;
+  products: Array<LegacyProductEntity>;
 };
 
 export default function ProductCardList({ products }: ProductCardListProps) {

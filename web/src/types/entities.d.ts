@@ -1,4 +1,4 @@
-export type ProductEntity = {
+type LegacyProductEntity = {
   id: string;
   name: string;
   brand: string;

@@ -80,4 +80,5 @@ function useCartContext() {
   return useContext(CartContext);
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { CartContextProvider, useCartContext };

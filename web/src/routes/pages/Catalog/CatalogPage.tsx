@@ -1,43 +1,13 @@
-import { useEffect, useState } from "react";
 import ProductCardList from "./components/ProductCardList";
-import { useApiResource } from "../../../hooks/useApiResource";
 import SpinnerIcon from "../../../components/icons/SpinnerIcon";
 import Page from "../../../components/layout/Page";
 import { useCartContext } from "../../../contexts/cart";
+import { useCatalogContext } from "../../../contexts/catalog";
 
 export default function CatalogPage() {
-  const itemsPerPage = 10;
-  const [page, setPage] = useState(1);
-  const { data, error, loading } = useApiResource<Array<LegacyProductEntity>>(
-    "legacy-products",
-    "/catalog",
-    { page, limit: itemsPerPage },
-  );
-  const [products, setProducts] = useState<Array<LegacyProductEntity>>([]);
-  const [newPageRequested, setNewPageRequested] = useState(false);
-  const [hasMorePages, setHasMorePages] = useState(true);
-
+  const { products, loading, newPageRequested, hasMorePages, onLoadMore } =
+    useCatalogContext();
   const { addItemToCart } = useCartContext();
-
-  useEffect(() => {
-    if (error || !data) return;
-
-    setNewPageRequested(false);
-    setProducts((prevState) =>
-      prevState.concat(
-        data.filter(({ id }) => !prevState.map(({ id }) => id).includes(id)),
-      ),
-    );
-    if (data.length < itemsPerPage) {
-      setHasMorePages(false);
-    }
-  }, [data, error]);
-
-  const handleLoadMore = () => {
-    if (!hasMorePages) return;
-    setNewPageRequested(true);
-    setPage(page + 1);
-  };
 
   const handleAddProductToCart = (product: LegacyProductEntity) => {
     addItemToCart(product);
@@ -65,7 +35,7 @@ export default function CatalogPage() {
                 !hasMorePages && "disabled:opacity-0",
                 hasMorePages && "hover:bg-teal-200",
               ].join(" ")}
-              onClick={handleLoadMore}
+              onClick={onLoadMore}
             >
               Load more
             </button>

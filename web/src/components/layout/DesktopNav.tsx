@@ -11,14 +11,7 @@ export default function DesktopNav() {
           Catalog
         </Link>
       </div>
-      <div>
-        <Link
-          to="sign-in"
-          className="mt-4 inline-block rounded border border-white px-4 py-2 text-sm leading-none text-white hover:border-transparent hover:bg-white hover:text-teal-500 lg:mt-0"
-        >
-          Sign In
-        </Link>
-      </div>
+      <div>{/* cart icons */}</div>
     </div>
   );
 }

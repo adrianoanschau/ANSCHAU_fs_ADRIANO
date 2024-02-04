@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProductCardList from "./components/ProductCardList";
 import { useApiResource } from "../../../hooks/useApiResource";
 import SpinnerIcon from "../../../components/icons/SpinnerIcon";
+import Page from "../../../components/layout/Page";
 
 export default function CatalogPage() {
   const itemsPerPage = 10;
@@ -36,11 +37,7 @@ export default function CatalogPage() {
   };
 
   return (
-    <section id="catalog">
-      <div className="p-2 text-center">
-        <h1 className="mb-4 text-4xl font-bold">Catalog</h1>
-        <h4 className="text-2xl">Products List</h4>
-      </div>
+    <Page id="catalog" title="Catalog" subtitle="Products List">
       <div className="m-5 flex justify-center text-center">
         {(loading || newPageRequested) && (
           <div className="fixed rounded-xl bg-slate-50/[.9] px-40 py-20">
@@ -65,6 +62,6 @@ export default function CatalogPage() {
           </div>
         )}
       </div>
-    </section>
+    </Page>
   );
 }

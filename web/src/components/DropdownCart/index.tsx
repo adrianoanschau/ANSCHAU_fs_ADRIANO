@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import CartIcon from "../icons/CartIcon";
 import { useCartContext } from "../../contexts/cart";
-import { useOnClickOutside } from "usehooks-ts";
+import ItemCartControls from "./ItemCartControls";
+import CartResetControls from "./CartRestControls";
 
 export default function DropdownCart() {
-  const { cart } = useCartContext();
+  const { cart, addItemToCart, removeItemFromCart, resetCart } =
+    useCartContext();
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [cartEmpty, setCartEmpty] = useState(!cart.length);
   const containerRef = useRef(null);
@@ -15,12 +17,6 @@ export default function DropdownCart() {
     }
     setCartEmpty(!cart.length);
   }, [cart, cartEmpty]);
-
-  const handleClickOutside = () => {
-    setShowCartDropdown(false);
-  };
-
-  useOnClickOutside(containerRef, handleClickOutside);
 
   return (
     <div ref={containerRef} className="relative">
@@ -39,26 +35,39 @@ export default function DropdownCart() {
 
       <div
         className={[
-          "absolute right-0 z-10 w-60 divide-y divide-gray-100 rounded-lg bg-white shadow",
+          "absolute right-0 z-10 w-80 divide-y divide-gray-100 rounded-lg bg-white shadow",
           !showCartDropdown && "hidden",
         ].join(" ")}
       >
         <ul
-          className="py-2 text-sm text-gray-700 dark:text-gray-200"
+          className=" py-2 text-sm text-gray-700"
           aria-labelledby="dropdownDefaultButton"
         >
+          {cart.length < 1 && <li className="p-4">Your cart is empty</li>}
           {cart.map(({ item, quantity }) => (
-            <li key={item.id}>
-              <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-                <span>{item.name}</span> <span>{quantity}</span>
-              </a>
+            <li key={item.id} className="flex items-center border-b">
+              <div className="text-md flex w-full flex-col justify-center p-4 hover:bg-gray-100">
+                <div>
+                  <span>{item.name}</span>
+                </div>
+                <div className="mt-2 flex justify-between">
+                  <div>{quantity}</div>
+                  <div className="flex justify-end">
+                    <ItemCartControls
+                      onIncreaseItem={() => addItemToCart(item, 1)}
+                      onDecreaseItem={() => removeItemFromCart(item, 1)}
+                      onRemoveItem={() => removeItemFromCart(item)}
+                    />
+                  </div>
+                </div>
+              </div>
             </li>
           ))}
-          <li className="border-t-2">
-            <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-              Cart
-            </a>
-          </li>
+          {!!cart.length && (
+            <li className="flex justify-end border-t p-4">
+              <CartResetControls onReset={() => resetCart()} />
+            </li>
+          )}
         </ul>
       </div>
     </div>

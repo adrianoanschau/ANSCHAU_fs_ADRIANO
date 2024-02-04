@@ -10,7 +10,7 @@ type CartContextProps = {
   addItemToCart: (item: LegacyProductEntity, quantity?: number) => void;
   removeItemFromCart: (
     item: LegacyProductEntity,
-    quantity: number | null,
+    quantity?: number | null,
   ) => void;
   resetCart: () => void;
 };

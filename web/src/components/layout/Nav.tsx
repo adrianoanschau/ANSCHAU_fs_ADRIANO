@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import CartIcon from "../icons/CartIcon";
 
 export default function DesktopNav() {
   return (
@@ -11,7 +12,9 @@ export default function DesktopNav() {
           Catalog
         </Link>
       </div>
-      <div>{/* cart icons */}</div>
+      <div>
+        <CartIcon color="white" />
+      </div>
     </div>
   );
 }

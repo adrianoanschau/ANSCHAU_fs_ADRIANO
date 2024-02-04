@@ -7,6 +7,7 @@ export function useApiResource<T>(type: string, path: string) {
     `/api/${path}`,
   );
   const [data, setData] = useState<T>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (error) return;
@@ -15,7 +16,14 @@ export function useApiResource<T>(type: string, path: string) {
     if (apiResponse.type !== type) return;
 
     setData(ApiDataMapper<T>(apiResponse));
+    setLoading(false);
   }, [apiResponse, error, type]);
 
-  return data;
+  useEffect(() => {
+    if (!error) return;
+
+    setLoading(false);
+  }, [error]);
+
+  return { data, error, loading };
 }

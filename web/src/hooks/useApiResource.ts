@@ -2,9 +2,30 @@ import { useFetch } from "usehooks-ts";
 import { useEffect, useState } from "react";
 import ApiDataMapper from "../helpers/ApiDataMapper";
 
-export function useApiResource<T>(type: string, path: string) {
+function buildUrl(
+  path: string,
+  searchParams: Record<string, string | number> = {},
+) {
+  const transformedSearchParams = Object.entries(searchParams).reduce(
+    (acc, [key, value]) => {
+      acc[key] = `${value}`;
+
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
+  const search = new URLSearchParams(transformedSearchParams).toString();
+
+  return `/api/${path.replace(/^\//, "")}?${search}`;
+}
+
+export function useApiResource<T>(
+  type: string,
+  path: string,
+  searchParams?: Record<string, string | number>,
+) {
   const { data: apiResponse, error } = useFetch<ApiDataResponse<T>>(
-    `/api/${path}`,
+    buildUrl(path, searchParams),
   );
   const [data, setData] = useState<T>();
   const [loading, setLoading] = useState(true);

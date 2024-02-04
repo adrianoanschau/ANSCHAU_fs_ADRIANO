@@ -1,10 +1,11 @@
-export default function SpinnerIcon() {
+export default function SpinnerIcon({ size = 8 }: { size?: number }) {
+  console.log({ size });
   return (
     <div className="inline-flex items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
-        className="h-8 w-8 animate-spin fill-teal-500 text-center text-gray-200 dark:text-gray-600"
+        className={`h-${size} w-${size} animate-spin fill-teal-500 text-center text-gray-200 dark:text-gray-600`}
         viewBox="0 0 100 101"
         fill="none"
       >

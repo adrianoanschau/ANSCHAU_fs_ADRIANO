@@ -11,6 +11,12 @@ export default function Nav() {
         >
           Catalog
         </Link>
+        <Link
+          to="orders"
+          className="mr-4 mt-4 block text-teal-200 hover:text-white lg:mt-0 lg:inline-block"
+        >
+          Orders
+        </Link>
       </div>
       <div>
         <DropdownCart />

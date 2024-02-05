@@ -1,4 +1,4 @@
-function productEntityMapper(data: ProductOfCatalog) {
+function legacyProductsMapper(data: ApiCatalogProduct) {
   return {
     id: data.id,
     name: data.name,
@@ -8,9 +8,24 @@ function productEntityMapper(data: ProductOfCatalog) {
   } as LegacyProductEntity;
 }
 
+function productsMapper(data: ApiProduct) {
+  return {
+    id: data.id,
+    name: data.name,
+  } as ProductEntity;
+}
+
+function ordersMapper(data: ApiOrder) {
+  return {
+    id: data.id,
+    products: data.products.map((value) => productsMapper(value)),
+  } as OrderEntity;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mappers: Record<string, (data: any) => any> = {
-  "legacy-products": productEntityMapper,
+  "legacy-products": legacyProductsMapper,
+  orders: ordersMapper,
 };
 
 export default function dataMapper<T>(apiDataResponse: ApiDataResponse<T>) {

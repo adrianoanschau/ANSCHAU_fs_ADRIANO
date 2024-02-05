@@ -9,7 +9,7 @@ import { useOrdersContext } from "../../contexts/orders";
 export default function DropdownCart() {
   const { cart, addItemToCart, removeItemFromCart, resetCart } =
     useCartContext();
-  const { loading, onCreateOrder } = useOrdersContext();
+  const { creating, onCreateOrder } = useOrdersContext();
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [cartEmpty, setCartEmpty] = useState(!cart.length);
   const containerRef = useRef(null);
@@ -68,7 +68,10 @@ export default function DropdownCart() {
           ))}
           {!!cart.length && (
             <li className="flex justify-between border-t p-4">
-              <CreateOrderControls onCreate={() => onCreateOrder()} fetching={loading} />
+              <CreateOrderControls
+                onCreate={() => onCreateOrder()}
+                fetching={creating.loading}
+              />
               <CartResetControls onReset={() => resetCart()} />
             </li>
           )}

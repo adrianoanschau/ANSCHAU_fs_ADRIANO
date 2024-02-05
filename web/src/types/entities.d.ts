@@ -5,3 +5,13 @@ type LegacyProductEntity = {
   price: number;
   oldPrice: number;
 };
+
+type ProductEntity = {
+  id: string;
+  name: string;
+};
+
+type OrderEntity = {
+  id: string;
+  products: Array<ProductEntity>;
+};

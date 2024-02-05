@@ -4,8 +4,19 @@ type ApiDataResponse<T> = {
   data: T;
 };
 
-type ProductOfCatalog = {
+type ApiCatalogProduct = {
   id: string;
   name: string;
   suppliers: number[];
+};
+
+type ApiProduct = {
+  id: string;
+  name: string;
+  externalId: number;
+};
+
+type ApiOrder = {
+  id: string;
+  products: Array<ApiProduct>;
 };

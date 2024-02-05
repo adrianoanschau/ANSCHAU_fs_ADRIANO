@@ -3,11 +3,23 @@ import SpinnerIcon from "../../../components/icons/SpinnerIcon";
 import Page from "../../../components/layout/Page";
 import { useCartContext } from "../../../contexts/cart";
 import { useCatalogContext } from "../../../contexts/catalog";
+import { useEffect } from "react";
 
 export default function CatalogPage() {
-  const { products, loading, newPageRequested, hasMorePages, onLoadMore } =
-    useCatalogContext();
+  const {
+    products,
+    loading,
+    newPageRequested,
+    hasMorePages,
+    onLoadMore,
+    onLoadCatalog,
+  } = useCatalogContext();
   const { addItemToCart } = useCartContext();
+
+  useEffect(() => {
+    onLoadCatalog();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Page id="catalog" title="Catalog" subtitle="Products List">

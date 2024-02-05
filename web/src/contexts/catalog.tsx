@@ -13,6 +13,7 @@ type CatalogContextProps = {
   loading: boolean;
   newPageRequested: boolean;
   hasMorePages: boolean;
+  onLoadCatalog: () => void;
   onLoadMore: () => void;
 };
 
@@ -21,6 +22,7 @@ const initialContextState: CatalogContextProps = {
   loading: true,
   newPageRequested: false,
   hasMorePages: true,
+  onLoadCatalog: () => {},
   onLoadMore: () => {},
 };
 
@@ -29,12 +31,7 @@ const CatalogContext = createContext(initialContextState);
 function CatalogContextProvider({ children }: PropsWithChildren) {
   const itemsPerPage = 10;
   const [page, setPage] = useState(1);
-  const {
-    data,
-    error,
-    loading,
-    fetch: loadProducts,
-  } = useApiGet<Array<LegacyProductEntity>>(
+  const catalog = useApiGet<Array<LegacyProductEntity>>(
     "legacy-products",
     buildPath("/api/catalog", { page, limit: itemsPerPage }),
   );
@@ -43,18 +40,20 @@ function CatalogContextProvider({ children }: PropsWithChildren) {
   const [hasMorePages, setHasMorePages] = useState(true);
 
   useEffect(() => {
-    if (error || !data) return;
+    if (catalog.error || !catalog.data) return;
 
     setNewPageRequested(false);
     setProducts((prevState) =>
       prevState.concat(
-        data.filter(({ id }) => !prevState.map(({ id }) => id).includes(id)),
+        catalog.data?.filter(
+          ({ id }) => !prevState.map(({ id }) => id).includes(id),
+        ) ?? [],
       ),
     );
-    if (data.length < itemsPerPage) {
+    if (catalog.data.length < itemsPerPage) {
       setHasMorePages(false);
     }
-  }, [data, error]);
+  }, [catalog.data, catalog.error]);
 
   const handleLoadMore = () => {
     if (!hasMorePages) return;
@@ -62,19 +61,19 @@ function CatalogContextProvider({ children }: PropsWithChildren) {
     setPage(page + 1);
   };
 
-  useEffect(() => {
-    loadProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const handleLoadCatalog = () => {
+    catalog.fetch();
+  };
 
   return (
     <CatalogContext.Provider
       value={{
         products,
-        loading,
+        loading: catalog.loading,
         newPageRequested,
         hasMorePages,
         onLoadMore: handleLoadMore,
+        onLoadCatalog: handleLoadCatalog,
       }}
     >
       {children}

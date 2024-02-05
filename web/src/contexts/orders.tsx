@@ -1,29 +1,52 @@
 import { PropsWithChildren, createContext, useContext } from "react";
 import { useCartContext } from "./cart";
-import { useApiPost } from "../hooks/api";
+import { useApiGet, useApiPost } from "../hooks/api";
 import { buildPath } from "../helpers/buildPath";
 
 type OrdersContextProps = {
-  loading: boolean;
+  listing: {
+    loading: boolean;
+    data?: Array<OrderEntity>;
+  };
+  creating: {
+    loading: boolean;
+  };
+  onLoadOrders: () => void;
   onCreateOrder: () => void;
+  onDeleteOrder: () => void;
 };
 
 const initialContextState: OrdersContextProps = {
-  loading: false,
+  listing: {
+    loading: false,
+  },
+  creating: {
+    loading: false,
+  },
+  onLoadOrders: () => {},
   onCreateOrder: () => {},
+  onDeleteOrder: () => {},
 };
 
 const OrdersContext = createContext(initialContextState);
 
 function OrdersContextProvider({ children }: PropsWithChildren) {
   const { cart, resetCart } = useCartContext();
-  const { loading, fetch: createOrder } = useApiPost<
-    LegacyProductEntity,
-    CreateOrderDTO
-  >("orders", buildPath("/api/orders"));
+  const listing = useApiGet<Array<OrderEntity>>(
+    "orders",
+    buildPath("/api/orders"),
+  );
+  const creating = useApiPost<LegacyProductEntity, CreateOrderDTO>(
+    "orders",
+    buildPath("/api/orders"),
+  );
+
+  const handleLoadOrders = () => {
+    listing.fetch();
+  };
 
   const handleCreateOrder = () => {
-    createOrder({
+    creating.fetch({
       products: cart.map(({ item }) => ({
         id: item.id,
         name: item.name,
@@ -32,9 +55,17 @@ function OrdersContextProvider({ children }: PropsWithChildren) {
     resetCart();
   };
 
+  const handleDeleteOrder = () => {};
+
   return (
     <OrdersContext.Provider
-      value={{ loading, onCreateOrder: handleCreateOrder }}
+      value={{
+        listing,
+        creating,
+        onCreateOrder: handleCreateOrder,
+        onLoadOrders: handleLoadOrders,
+        onDeleteOrder: handleDeleteOrder,
+      }}
     >
       {children}
     </OrdersContext.Provider>

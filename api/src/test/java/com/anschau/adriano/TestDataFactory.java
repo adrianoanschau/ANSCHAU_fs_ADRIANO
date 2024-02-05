@@ -56,7 +56,7 @@ public class TestDataFactory {
     }
 
     private static CreateProductDTO mockCreateProductDTO(long id) {
-        return new CreateProductDTO(id, "Product " + id);
+        return new CreateProductDTO(id, "Product " + id, 9.90, 1);
     }
 
     public static List<OrderEntity> mockOrderEntityList(int size) {

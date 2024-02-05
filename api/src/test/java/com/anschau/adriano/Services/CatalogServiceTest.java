@@ -31,19 +31,14 @@ public class CatalogServiceTest {
     }
 
     @Test
-    void shouldReturnListOfProductsWhenCallWithPageParam() throws Exception {
-        List<LegacyProductEntity> mockedLegacyProductEntityList = TestDataFactory.mockLegacyProductEntityList(1);
-        Mockito.doReturn(mockedLegacyProductEntityList).when(legacyConsumerService).listOfProducts("1");
+    void shouldReturnProductsWhenCallListOfProducts() throws Exception {
+        String page = "1";
+        String limit = "10";
+        List<LegacyProductEntity> mockedLegacyProductEntityList = TestDataFactory.mockLegacyProductEntityList(10);
+        Mockito.doReturn(mockedLegacyProductEntityList).when(legacyConsumerService).listOfProducts(page, limit);
 
-        Assertions.assertThat(service.list()).isEqualTo(mockedLegacyProductEntityList);
-    }
-
-    @Test
-    void shouldReturnListOfProductsWhenCallWithPageParamNull() throws Exception {
-        List<LegacyProductEntity> mockedLegacyProductEntityList = TestDataFactory.mockLegacyProductEntityList(1);
-        Mockito.doReturn(mockedLegacyProductEntityList).when(legacyConsumerService).listOfProducts("1");
-
-        Assertions.assertThat(service.list(null)).isEqualTo(mockedLegacyProductEntityList);
+        Assertions.assertThat(service.list(null, null)).isEqualTo(mockedLegacyProductEntityList);
+        Assertions.assertThat(service.list(page, limit)).isEqualTo(mockedLegacyProductEntityList);
     }
     
 }

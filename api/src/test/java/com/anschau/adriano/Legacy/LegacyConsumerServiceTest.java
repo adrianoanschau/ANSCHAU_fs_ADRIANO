@@ -56,7 +56,7 @@ public class LegacyConsumerServiceTest {
                 .setBody(mapper.writeValueAsString(mockedProductsList))
             );
 
-        List<LegacyProductEntity> response = service.listOfProducts("1");
+        List<LegacyProductEntity> response = service.listOfProducts("1", "10");
 
         Assertions.assertThat(mapper.writeValueAsString(response)).isEqualTo(mapper.writeValueAsString(mockedProductsList));
     }

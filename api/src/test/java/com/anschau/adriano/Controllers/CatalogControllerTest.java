@@ -32,12 +32,13 @@ public class CatalogControllerTest {
     @Test
     void shouldReturnListWithFirstPageProductsWhenCallListProducts() throws Exception {
         String page = "1";
+        String limit = "10";
         List<LegacyProductEntity> mockedLegacyProductsList = TestDataFactory.mockLegacyProductEntityList(10);
-        Mockito.doReturn(mockedLegacyProductsList).when(service).list(page);
+        Mockito.doReturn(mockedLegacyProductsList).when(service).list(page, limit);
         
         TestDataFactory.assertResponseEntity(
             HttpStatus.OK,
-            controller.listProducts(page),
+            controller.listProducts(page, limit),
             ApiResponse.build("legacy-products", mockedLegacyProductsList)
         );
     }

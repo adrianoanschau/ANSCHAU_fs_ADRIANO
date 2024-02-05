@@ -16,13 +16,13 @@ public class CatalogService {
         this.legacyConsumerService = legacyConsumerService;
     }
 
-    public List<LegacyProductEntity> list() throws Exception {
-        return list("1", "10");
-    }
-    public List<LegacyProductEntity> list(String page) throws Exception {
-        return list(page, "10");
-    }
     public List<LegacyProductEntity> list(String page, String limit) throws Exception {
-        return this.legacyConsumerService.listOfProducts(page == null ? "1" : page, limit == null ? "10" : limit);
+        if (page == null) {
+            page = "1";
+        }
+        if (limit == null) {
+            limit = "10";
+        }
+        return this.legacyConsumerService.listOfProducts(page, limit);
     }
 }

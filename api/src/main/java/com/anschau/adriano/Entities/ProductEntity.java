@@ -3,6 +3,9 @@ package com.anschau.adriano.Entities;
 import java.io.Serializable;
 import java.util.UUID;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,4 +38,11 @@ public class ProductEntity implements Serializable {
 
     @Column(nullable = false)
     private Long externalId;
+
+    @Column(nullable = false)
+    @NumberFormat(style = Style.CURRENCY)
+    private double price;
+
+    @Column(nullable = false)
+    private int quantity;
 }

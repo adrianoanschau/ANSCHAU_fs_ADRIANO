@@ -32,6 +32,8 @@ public class OrderService {
             ProductEntity product = new ProductEntity();
             product.setName(productDto.getName());
             product.setExternalId(productDto.getId());
+            product.setPrice(productDto.getPrice());
+            product.setQuantity(productDto.getQuantity());
             product.setOrder(order);
             
             products.add(product);

@@ -8,4 +8,6 @@ import lombok.Getter;
 public class CreateProductDTO {
     private Long id;
     private String name;
+    private double price;
+    private int quantity;
 }

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Page from "../../../components/layout/Page";
 import { useOrdersContext } from "../../../contexts/orders";
+import { formatCurrency } from "../../../helpers/formatCurrency";
 
 export default function OrdersPage() {
   const {
@@ -13,6 +14,12 @@ export default function OrdersPage() {
     onLoadOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleCalcTotalOfOrder = (order: OrderEntity) => {
+    return order.products.reduce((sum, product) => {
+      return product.price * product.quantity + sum;
+    }, 0);
+  };
 
   return (
     <Page id="orders" title="Orders" subtitle="List of Orders">
@@ -42,9 +49,13 @@ export default function OrdersPage() {
                       <tr key={product.id}>
                         <td className="py-2">{product.name}</td>
                         <td className="py-2">{product.id}</td>
-                        <td className="py-2 text-right">1</td>
-                        <td className="py-2 text-right">149</td>
-                        <td className="py-2 text-right">149</td>
+                        <td className="py-2 text-right">{product.quantity}</td>
+                        <td className="py-2 text-right">
+                          {formatCurrency(product.price)}
+                        </td>
+                        <td className="py-2 text-right">
+                          {formatCurrency(product.price * product.quantity)}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -57,12 +68,16 @@ export default function OrdersPage() {
                             Total of Order
                           </div>
                           <div className="flex justify-between py-1">
-                            <span>Items:</span>{" "}
-                            <span className="font-semibold">2</span>
+                            <span>Items:</span>
+                            <span className="font-semibold">
+                              {order.products.length}
+                            </span>
                           </div>
                           <div className="flex justify-between py-1">
-                            <span>Value:</span>{" "}
-                            <span className="font-semibold">298</span>
+                            <span>Value:</span>
+                            <span className="font-semibold">
+                              {formatCurrency(handleCalcTotalOfOrder(order))}
+                            </span>
                           </div>
                         </div>
                       </td>

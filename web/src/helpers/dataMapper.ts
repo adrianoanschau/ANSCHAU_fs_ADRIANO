@@ -2,9 +2,9 @@ function legacyProductsMapper(data: ApiCatalogProduct) {
   return {
     id: data.id,
     name: data.name,
-    brand: "Brand 1",
-    price: 149,
-    oldPrice: 199,
+    brand: data.brand,
+    price: data.price,
+    oldPrice: data.oldPrice,
   } as LegacyProductEntity;
 }
 
@@ -12,7 +12,9 @@ function productsMapper(data: ApiProduct) {
   return {
     id: data.id,
     name: data.name,
-  } as ProductEntity;
+    price: data.price,
+    quantity: data.quantity,
+  } as OrderProductEntity;
 }
 
 function ordersMapper(data: ApiOrder) {

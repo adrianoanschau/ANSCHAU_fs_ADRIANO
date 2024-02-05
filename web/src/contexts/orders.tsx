@@ -57,9 +57,11 @@ function OrdersContextProvider({ children }: PropsWithChildren) {
 
   const handleCreateOrder = () => {
     creating.fetch({
-      products: cart.map(({ item }) => ({
+      products: cart.map(({ item, quantity }) => ({
         id: item.id,
         name: item.name,
+        price: item.price,
+        quantity,
       })),
     });
     resetCart();

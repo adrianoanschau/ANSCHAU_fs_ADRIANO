@@ -5,7 +5,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useApiResource } from "../hooks/useApiResource";
+import { useApiGet } from "../hooks/api";
+import { buildPath } from "../helpers/buildPath";
 
 type CatalogContextProps = {
   products: Array<LegacyProductEntity>;
@@ -28,10 +29,14 @@ const CatalogContext = createContext(initialContextState);
 function CatalogContextProvider({ children }: PropsWithChildren) {
   const itemsPerPage = 10;
   const [page, setPage] = useState(1);
-  const { data, error, loading } = useApiResource<Array<LegacyProductEntity>>(
+  const {
+    data,
+    error,
+    loading,
+    fetch: loadProducts,
+  } = useApiGet<Array<LegacyProductEntity>>(
     "legacy-products",
-    "/catalog",
-    { page, limit: itemsPerPage },
+    buildPath("/api/catalog", { page, limit: itemsPerPage }),
   );
   const [products, setProducts] = useState<Array<LegacyProductEntity>>([]);
   const [newPageRequested, setNewPageRequested] = useState(false);
@@ -56,6 +61,11 @@ function CatalogContextProvider({ children }: PropsWithChildren) {
     setNewPageRequested(true);
     setPage(page + 1);
   };
+
+  useEffect(() => {
+    loadProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <CatalogContext.Provider

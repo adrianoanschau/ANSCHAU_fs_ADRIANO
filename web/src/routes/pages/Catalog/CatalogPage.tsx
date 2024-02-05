@@ -9,10 +9,6 @@ export default function CatalogPage() {
     useCatalogContext();
   const { addItemToCart } = useCartContext();
 
-  const handleAddProductToCart = (product: LegacyProductEntity) => {
-    addItemToCart(product);
-  };
-
   return (
     <Page id="catalog" title="Catalog" subtitle="Products List">
       <div className="m-5 flex justify-center text-center">
@@ -25,7 +21,7 @@ export default function CatalogPage() {
           <div>
             <ProductCardList
               products={products}
-              onAddProductToCart={handleAddProductToCart}
+              onAddProductToCart={addItemToCart}
             />
             <button
               type="button"

@@ -4,10 +4,12 @@ import { useCartContext } from "../../contexts/cart";
 import ItemCartControls from "./ItemCartControls";
 import CartResetControls from "./CartRestControls";
 import CreateOrderControls from "./CreateOrderControls";
+import { useOrdersContext } from "../../contexts/orders";
 
 export default function DropdownCart() {
   const { cart, addItemToCart, removeItemFromCart, resetCart } =
     useCartContext();
+  const { loading, onCreateOrder } = useOrdersContext();
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [cartEmpty, setCartEmpty] = useState(!cart.length);
   const containerRef = useRef(null);
@@ -66,7 +68,7 @@ export default function DropdownCart() {
           ))}
           {!!cart.length && (
             <li className="flex justify-between border-t p-4">
-              <CreateOrderControls onCreate={() => {}} />
+              <CreateOrderControls onCreate={() => onCreateOrder()} fetching={loading} />
               <CartResetControls onReset={() => resetCart()} />
             </li>
           )}

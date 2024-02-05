@@ -3,9 +3,9 @@ import dataMapper from "../helpers/dataMapper";
 import { useFetch } from "./useFetch";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function useApi<T, D = any>(
+function useApi<T, D extends Record<string, any>>(
   type: string,
-  method: "GET" | "POST" = "GET",
+  method: "GET" | "POST" | "DELETE" = "GET",
   path: string,
 ) {
   const [url, setUrl] = useState<string>();
@@ -36,19 +36,48 @@ function useApi<T, D = any>(
     setLoading(false);
   }, [error]);
 
-  const fetch = (data?: D) => {
+  const fetch = (data?: D, newPath?: string) => {
+    if (method === "POST") {
+      setBody(data);
+    }
+
     setLoading(true);
-    setBody(data);
-    setUrl(path);
+    setUrl(newPath ?? path);
   };
 
   return { data: payload, error, loading, fetch };
 }
 
-export function useApiGet<T>(type: string, path: string) {
-  return useApi<T>(type, "GET", path);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useApiGet<T, D extends Record<string, string | number> = any>(
+  type: string,
+  path: string,
+) {
+  return useApi<T, D>(type, "GET", path);
 }
 
-export function useApiPost<T, D>(type: string, path: string) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useApiPost<T, D extends Record<string, any> = any>(
+  type: string,
+  path: string,
+) {
   return useApi<T, D>(type, "POST", path);
+}
+
+export function useApiDelete<
+  T,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  D extends Record<string, string | number> = any,
+>(type: string, path: string) {
+  const { fetch, ...api } = useApi<T, D>(type, "DELETE", path);
+
+  const handleFetch = (data: D) => {
+    const newPath = Object.entries(data).reduce((acc, [key, value]) => {
+      return acc.replace(`{${key}}`, `${value}`);
+    }, path);
+
+    fetch(data, newPath);
+  };
+
+  return { ...api, fetch: handleFetch };
 }

@@ -70,12 +70,12 @@ export default function OrdersPage() {
                   </tfoot>
                 </table>
               </div>
-              <div>
+              <div className="flex justify-end p-2">
                 <button
                   type="button"
                   title="Delete Order"
                   className="text-md flex items-center rounded bg-red-700 p-2 text-center font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300"
-                  onClick={() => onDeleteOrder()}
+                  onClick={() => onDeleteOrder(order.id)}
                 >
                   Delete Order
                 </button>

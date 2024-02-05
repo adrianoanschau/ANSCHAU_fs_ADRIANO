@@ -1,6 +1,6 @@
 import { PropsWithChildren, createContext, useContext } from "react";
 import { useCartContext } from "./cart";
-import { useApiGet, useApiPost } from "../hooks/api";
+import { useApiDelete, useApiGet, useApiPost } from "../hooks/api";
 import { buildPath } from "../helpers/buildPath";
 
 type OrdersContextProps = {
@@ -11,9 +11,12 @@ type OrdersContextProps = {
   creating: {
     loading: boolean;
   };
+  deleting: {
+    loading: boolean;
+  };
   onLoadOrders: () => void;
   onCreateOrder: () => void;
-  onDeleteOrder: () => void;
+  onDeleteOrder: (id: string) => void;
 };
 
 const initialContextState: OrdersContextProps = {
@@ -21,6 +24,9 @@ const initialContextState: OrdersContextProps = {
     loading: false,
   },
   creating: {
+    loading: false,
+  },
+  deleting: {
     loading: false,
   },
   onLoadOrders: () => {},
@@ -40,6 +46,10 @@ function OrdersContextProvider({ children }: PropsWithChildren) {
     "orders",
     buildPath("/api/orders"),
   );
+  const deleting = useApiDelete<object, { id: string }>(
+    "orders",
+    buildPath("/api/orders/{id}"),
+  );
 
   const handleLoadOrders = () => {
     listing.fetch();
@@ -55,13 +65,18 @@ function OrdersContextProvider({ children }: PropsWithChildren) {
     resetCart();
   };
 
-  const handleDeleteOrder = () => {};
+  const handleDeleteOrder = (id: string) => {
+    if (window.confirm("Do you really want to delete this order?")) {
+      deleting.fetch({ id });
+    }
+  };
 
   return (
     <OrdersContext.Provider
       value={{
         listing,
         creating,
+        deleting,
         onCreateOrder: handleCreateOrder,
         onLoadOrders: handleLoadOrders,
         onDeleteOrder: handleDeleteOrder,

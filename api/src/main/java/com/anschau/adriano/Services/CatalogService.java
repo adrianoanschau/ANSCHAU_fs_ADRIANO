@@ -17,9 +17,12 @@ public class CatalogService {
     }
 
     public List<LegacyProductEntity> list() throws Exception {
-        return list("1");
+        return list("1", "10");
     }
     public List<LegacyProductEntity> list(String page) throws Exception {
-        return this.legacyConsumerService.listOfProducts(page == null ? "1" : page);
+        return list(page, "10");
+    }
+    public List<LegacyProductEntity> list(String page, String limit) throws Exception {
+        return this.legacyConsumerService.listOfProducts(page == null ? "1" : page, limit == null ? "10" : limit);
     }
 }

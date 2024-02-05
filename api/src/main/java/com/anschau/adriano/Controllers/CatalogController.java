@@ -21,8 +21,8 @@ public class CatalogController {
     }
     
 	@GetMapping("/catalog")
-	public ResponseEntity<ApiResponse<List<LegacyProductEntity>>> listProducts(@RequestParam(required = false) String page) throws Exception {
-        List<LegacyProductEntity> response = this.catalogService.list(page);
+	public ResponseEntity<ApiResponse<List<LegacyProductEntity>>> listProducts(@RequestParam(required = false) String page, @RequestParam(required = false) String limit) throws Exception {
+        List<LegacyProductEntity> response = this.catalogService.list(page, limit);
         
 		return ResponseEntity.status(HttpStatus.OK)
             .body(ApiResponse.build("legacy-products", response));

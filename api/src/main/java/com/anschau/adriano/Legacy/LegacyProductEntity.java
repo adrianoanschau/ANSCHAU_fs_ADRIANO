@@ -12,5 +12,8 @@ public class LegacyProductEntity implements Serializable {
     @Id
     private String id;
     private String name;
+    private String brand;
+    private double price;
+    private double oldPrice;
     private int[] suppliers;
 }

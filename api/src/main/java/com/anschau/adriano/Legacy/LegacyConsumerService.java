@@ -33,9 +33,9 @@ public class LegacyConsumerService {
     }
     
     @Cacheable(value = "legacy-products")
-    public List<LegacyProductEntity> listOfProducts(String page) throws Exception {
+    public List<LegacyProductEntity> listOfProducts(String page, String limit) throws Exception {
         Mono<LegacyProductEntity[]> responseEntity = this.webClient.get()
-            .uri(String.format("/products?page=%s&limit=10", page))
+            .uri(String.format("/products?page=%s&limit=%s", page, limit))
             .retrieve().bodyToMono(LegacyProductEntity[].class);
 
         ObjectMapper mapper = new ObjectMapper();

@@ -27,7 +27,7 @@ const initialContextState: CatalogContextProps = {
 const CatalogContext = createContext(initialContextState);
 
 function CatalogContextProvider({ children }: PropsWithChildren) {
-  const itemsPerPage = 10;
+  const itemsPerPage = 9;
   const [page, setPage] = useState(1);
   const catalog = useApiGet<Array<LegacyProductEntity>>(
     "legacy-products",

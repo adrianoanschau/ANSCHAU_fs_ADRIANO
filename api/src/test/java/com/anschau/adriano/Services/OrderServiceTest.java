@@ -42,10 +42,11 @@ public class OrderServiceTest {
         );
     }
 
+    @SuppressWarnings("null")
     @Test
     void shouldCreateAndReturnOneOrderWhenCallCreate() throws Exception {
         CreateOrderDTO mockedCreateOrderDTO = TestDataFactory.mockCreateOrderDTO(10);
-        OrderEntity mockedOrderEntity = TestDataFactory.mockOrderEntity(TestDataFactory.mockCreateOrderDTO(10), true);
+        OrderEntity mockedOrderEntity = TestDataFactory.mockOrderEntity(mockedCreateOrderDTO, true);
         
         Mockito.doReturn(mockedOrderEntity).when(repository).saveAndFlush(Mockito.any(OrderEntity.class));
 
@@ -55,6 +56,7 @@ public class OrderServiceTest {
         );
     }
 
+    @SuppressWarnings("null")
     @Test
     void shouldReturnOneOrderWhenCallFindOne() throws Exception {
         OrderEntity mockedOrderEntity = TestDataFactory.mockOrderEntity();
@@ -67,6 +69,7 @@ public class OrderServiceTest {
         );
     }
 
+    @SuppressWarnings("null")
     @Test
     void shouldReturnNullableWhenCallGetOrderWithInexistentOrderId() throws Exception {
         UUID orderId = UUID.randomUUID();
@@ -78,6 +81,7 @@ public class OrderServiceTest {
         );
     }
 
+    @SuppressWarnings("null")
     @Test
     void shouldReturnOrderDeletedWhenCallDelete() throws Exception {
         UUID orderId = UUID.randomUUID();
@@ -86,6 +90,7 @@ public class OrderServiceTest {
         Assertions.assertThat(service.delete(orderId)).isTrue();
     }
 
+    @SuppressWarnings("null")
     @Test
     void shouldReturnErrorWhenCallDeleteWithInexistentOrderId() throws Exception {
         UUID orderId = UUID.randomUUID();

@@ -37,10 +37,9 @@ public class OrderController {
 
     @PostMapping("/orders")
     public ResponseEntity<ApiResponse<OrderEntity>> createOrder(@RequestBody CreateOrderDTO body) throws Exception {
-
         OrderEntity order = this.orderService.create(body.getProducts());
 
-		return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity.status(HttpStatus.CREATED)
             .body(ApiResponse.build("orders", order));
     }
 

@@ -45,6 +45,16 @@ public class TestDataFactory {
         return data;
     }
 
+    public static List<CreateOrderDTO> mockCreateOrderDTOList(int ordersSize, int productsSize) {
+        List<CreateOrderDTO> list = new ArrayList<>();
+
+        for (int i = 0; i < ordersSize; i++) {
+            list.add(TestDataFactory.mockCreateOrderDTO(productsSize));
+        }
+
+        return list;
+    }
+
     private static List<CreateProductDTO> mockCreateProductDTOList(int size) {
         List<CreateProductDTO> list = new ArrayList<>();
 
@@ -106,6 +116,8 @@ public class TestDataFactory {
         entity.setOrder(order);
         entity.setName(product.getName());
         entity.setExternalId(product.getId());
+        entity.setPrice(product.getPrice());
+        entity.setQuantity(product.getQuantity());
 
         return entity;
     }

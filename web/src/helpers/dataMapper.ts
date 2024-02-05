@@ -1,4 +1,4 @@
-function ProductEntityMapper(data: ProductOfCatalog) {
+function productEntityMapper(data: ProductOfCatalog) {
   return {
     id: data.id,
     name: data.name,
@@ -10,10 +10,10 @@ function ProductEntityMapper(data: ProductOfCatalog) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mappers: Record<string, (data: any) => any> = {
-  "legacy-products": ProductEntityMapper,
+  "legacy-products": productEntityMapper,
 };
 
-export default function ApiDataMapper<T>(apiDataResponse: ApiDataResponse<T>) {
+export default function dataMapper<T>(apiDataResponse: ApiDataResponse<T>) {
   if (!Object.keys(mappers).includes(apiDataResponse.type))
     return apiDataResponse.data;
 

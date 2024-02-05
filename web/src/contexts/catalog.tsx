@@ -10,8 +10,7 @@ import { buildPath } from "../helpers/buildPath";
 
 type CatalogContextProps = {
   products: Array<LegacyProductEntity>;
-  loading: boolean;
-  newPageRequested: boolean;
+  fetching: boolean;
   hasMorePages: boolean;
   onLoadCatalog: () => void;
   onLoadMore: () => void;
@@ -19,8 +18,7 @@ type CatalogContextProps = {
 
 const initialContextState: CatalogContextProps = {
   products: [],
-  loading: true,
-  newPageRequested: false,
+  fetching: true,
   hasMorePages: true,
   onLoadCatalog: () => {},
   onLoadMore: () => {},
@@ -36,13 +34,11 @@ function CatalogContextProvider({ children }: PropsWithChildren) {
     buildPath("/api/catalog", { page, limit: itemsPerPage }),
   );
   const [products, setProducts] = useState<Array<LegacyProductEntity>>([]);
-  const [newPageRequested, setNewPageRequested] = useState(false);
   const [hasMorePages, setHasMorePages] = useState(true);
 
   useEffect(() => {
     if (catalog.error || !catalog.data) return;
 
-    setNewPageRequested(false);
     setProducts((prevState) =>
       prevState.concat(
         catalog.data?.filter(
@@ -55,9 +51,16 @@ function CatalogContextProvider({ children }: PropsWithChildren) {
     }
   }, [catalog.data, catalog.error]);
 
+  useEffect(() => {
+    catalog.fetch(
+      undefined,
+      buildPath("/api/catalog", { page, limit: itemsPerPage }),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
   const handleLoadMore = () => {
     if (!hasMorePages) return;
-    setNewPageRequested(true);
     setPage(page + 1);
   };
 
@@ -69,8 +72,7 @@ function CatalogContextProvider({ children }: PropsWithChildren) {
     <CatalogContext.Provider
       value={{
         products,
-        loading: catalog.loading,
-        newPageRequested,
+        fetching: catalog.fetching,
         hasMorePages,
         onLoadMore: handleLoadMore,
         onLoadCatalog: handleLoadCatalog,

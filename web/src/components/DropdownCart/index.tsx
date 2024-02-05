@@ -70,7 +70,7 @@ export default function DropdownCart() {
             <li className="flex justify-between border-t p-4">
               <CreateOrderControls
                 onCreate={() => onCreateOrder()}
-                fetching={creating.loading}
+                fetching={creating.fetching}
               />
               <CartResetControls onReset={() => resetCart()} />
             </li>

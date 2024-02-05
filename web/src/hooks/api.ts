@@ -10,42 +10,47 @@ function useApi<T, D extends Record<string, any>>(
 ) {
   const [url, setUrl] = useState<string>();
   const [body, setBody] = useState<D>();
-  const { data: apiResponse, error } = useFetch<ApiDataResponse<T>>(url, {
+  const {
+    data: apiResponse,
+    error,
+    fetching,
+  } = useFetch<ApiDataResponse<T>>(url, {
     method,
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
   const [payload, setPayload] = useState<T>();
-  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string>();
 
   useEffect(() => {
     if (error) return;
     if (!apiResponse) return;
-    if (!apiResponse.data) return;
+    if (!apiResponse.data && !apiResponse.message) return;
     if (apiResponse.type !== type) return;
 
-    setPayload(dataMapper<T>(apiResponse));
-    setLoading(false);
+    if (apiResponse.data) setPayload(dataMapper<T>(apiResponse));
+    if (apiResponse.message) setMessage(apiResponse.message);
+
     setBody(undefined);
     setUrl(undefined);
   }, [apiResponse, error, type]);
-
-  useEffect(() => {
-    if (!error) return;
-
-    setLoading(false);
-  }, [error]);
 
   const fetch = (data?: D, newPath?: string) => {
     if (method === "POST") {
       setBody(data);
     }
 
-    setLoading(true);
     setUrl(newPath ?? path);
   };
 
-  return { data: payload, error, loading, fetch };
+  const resetData = () => {
+    setUrl(undefined);
+    setBody(undefined);
+    setPayload(undefined);
+    setMessage(undefined);
+  };
+
+  return { data: payload, message, error, fetching, fetch, resetData };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

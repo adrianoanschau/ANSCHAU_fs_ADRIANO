@@ -1,18 +1,18 @@
-import { PropsWithChildren, createContext, useContext } from "react";
+import { PropsWithChildren, createContext, useContext, useEffect } from "react";
 import { useCartContext } from "./cart";
 import { useApiDelete, useApiGet, useApiPost } from "../hooks/api";
 import { buildPath } from "../helpers/buildPath";
 
 type OrdersContextProps = {
   listing: {
-    loading: boolean;
+    fetching: boolean;
     data?: Array<OrderEntity>;
   };
   creating: {
-    loading: boolean;
+    fetching: boolean;
   };
   deleting: {
-    loading: boolean;
+    fetching: boolean;
   };
   onLoadOrders: () => void;
   onCreateOrder: () => void;
@@ -21,13 +21,13 @@ type OrdersContextProps = {
 
 const initialContextState: OrdersContextProps = {
   listing: {
-    loading: false,
+    fetching: false,
   },
   creating: {
-    loading: false,
+    fetching: false,
   },
   deleting: {
-    loading: false,
+    fetching: false,
   },
   onLoadOrders: () => {},
   onCreateOrder: () => {},
@@ -70,6 +70,14 @@ function OrdersContextProvider({ children }: PropsWithChildren) {
       deleting.fetch({ id });
     }
   };
+
+  useEffect(() => {
+    if (!deleting.message) return;
+
+    handleLoadOrders();
+    deleting.resetData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deleting.message]);
 
   return (
     <OrdersContext.Provider

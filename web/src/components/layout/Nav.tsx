@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import DropdownCart from "../DropdownCart";
+import DropdownCart from "@/components/DropdownCart";
 
 export default function Nav() {
   return (

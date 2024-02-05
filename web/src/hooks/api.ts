@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import dataMapper from "../helpers/dataMapper";
+import dataMapper from "@/helpers/dataMapper";
 import { useFetch } from "./useFetch";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -22,6 +22,10 @@
     "esModuleInterop": true,
     "paths": {
       "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/contexts/*": ["./src/contexts/*"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/helpers/*": ["./src/helpers/*"],
     },
   },
   "include": ["src"],

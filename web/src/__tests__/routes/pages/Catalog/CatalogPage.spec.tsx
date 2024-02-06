@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
 import { Server } from "miragejs";
-import CatalogPage from "@/routes/pages/Catalog/CatalogPage";
 import { render, screen } from "@testing-library/react";
-import { makeServer } from "@/mocks/server";
+import CatalogPage from "../../../../routes/pages/Catalog/CatalogPage";
+import { makeServer } from "../../../../test/__mocks__/server";
 
 describe("CatalogPage", () => {
   let server: Server;

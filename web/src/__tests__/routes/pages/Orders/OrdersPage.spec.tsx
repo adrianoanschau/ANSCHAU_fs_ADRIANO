@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
-import OrdersPage from "@/routes/pages/Orders/OrdersPage";
 import { render, screen } from "@testing-library/react";
+import OrdersPage from "../../../../routes/pages/Orders/OrdersPage";
 
 describe("OrdersPage", () => {
   it("Renders the OrdersPage component", async () => {

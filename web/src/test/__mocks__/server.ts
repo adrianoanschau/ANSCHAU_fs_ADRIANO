@@ -1,6 +1,6 @@
 import { Factory, Model, createServer } from "miragejs";
 import { faker } from "@faker-js/faker";
-import * as legacyProducts from "@/mocks/catalog-legacy-products-list.json";
+import * as legacyProducts from "./catalog-legacy-products-list.json";
 
 export function makeServer() {
   const server = createServer({

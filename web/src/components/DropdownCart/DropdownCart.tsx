@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import CartIcon from "@/components/icons/CartIcon";
-import { useCartContext } from "@/contexts/cart";
-import { useOrdersContext } from "@/contexts/orders";
+import CartIcon from "../icons/CartIcon";
+import { useCartContext } from "../../contexts/cart";
+import { useOrdersContext } from "../../contexts/orders";
 import ItemCartControls from "./ItemCartControls";
 import CartResetControls from "./CartRestControls";
 import CreateOrderControls from "./CreateOrderControls";

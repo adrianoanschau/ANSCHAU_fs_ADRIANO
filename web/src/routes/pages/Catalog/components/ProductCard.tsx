@@ -1,4 +1,4 @@
-import CartIcon from "@/components/icons/CartIcon";
+import CartIcon from "../../../../components/icons/CartIcon";
 
 type ProductCardProps = {
   product: LegacyProductEntity;

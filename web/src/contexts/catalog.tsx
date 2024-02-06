@@ -5,8 +5,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useApiGet } from "@/hooks/api";
-import { buildPath } from "@/helpers/buildPath";
+import { useApiGet } from "../hooks/api";
+import { buildPath } from "../helpers/buildPath";
 
 type CatalogContextProps = {
   products: Array<LegacyProductEntity>;

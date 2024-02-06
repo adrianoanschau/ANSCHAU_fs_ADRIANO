@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import Page from "@/components/layout/Page";
-import { useOrdersContext } from "@/contexts/orders";
-import { formatCurrency } from "@/helpers/formatCurrency";
+import { Page } from "../../../components/layout";
+import { useOrdersContext } from "../../../contexts/orders";
+import { formatCurrency } from "../../../helpers/formatCurrency";
 
 export default function OrdersPage() {
   const {

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import SpinnerIcon from "@/components/icons/SpinnerIcon";
-import Page from "@/components/layout/Page";
-import { useCartContext } from "@/contexts/cart";
-import { useCatalogContext } from "@/contexts/catalog";
+import SpinnerIcon from "../../../components/icons/SpinnerIcon";
+import { Page } from "../../../components/layout";
+import { useCartContext } from "../../../contexts/cart";
+import { useCatalogContext } from "../../../contexts/catalog";
 import ProductCardList from "./components/ProductCardList";
 
 export default function CatalogPage() {

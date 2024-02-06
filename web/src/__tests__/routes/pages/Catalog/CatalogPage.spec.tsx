@@ -1,10 +1,19 @@
 import "@testing-library/jest-dom";
+import { Server } from "miragejs";
 import CatalogPage from "@/routes/pages/Catalog/CatalogPage";
 import { render, screen } from "@testing-library/react";
+import { makeServer } from "@/mocks/server";
 
 describe("CatalogPage", () => {
+  let server: Server;
+
   beforeEach(() => {
     render(<CatalogPage />);
+    server = makeServer();
+  });
+
+  afterEach(() => {
+    server.shutdown();
   });
 
   it("Renders the CatalogPage component", async () => {

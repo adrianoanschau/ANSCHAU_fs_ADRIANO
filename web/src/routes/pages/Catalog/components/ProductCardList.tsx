@@ -12,7 +12,7 @@ export default function ProductCardList({
   return (
     <div
       className="mx-auto mb-5 mt-10 grid w-fit grid-cols-1 justify-center justify-items-center gap-x-14 gap-y-20 md:grid-cols-2 lg:grid-cols-3"
-      data-testId="catalog-products"
+      data-testid="catalog-products"
     >
       {products.map((product) => (
         <ProductCard

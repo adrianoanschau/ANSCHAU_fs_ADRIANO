@@ -1,9 +1,21 @@
-import CatalogPage from "@/routes/pages/Catalog/CatalogPage";
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
+import CatalogPage from "@/routes/pages/Catalog/CatalogPage";
+import { render, screen } from "@testing-library/react";
 
-test("Renders the CatalogPage component", () => {
-  render(<CatalogPage />);
+describe("CatalogPage", () => {
+  beforeEach(() => {
+    render(<CatalogPage />);
+  });
 
-  expect(true).toBeTruthy();
+  it("Renders the CatalogPage component", async () => {
+    const titleElement = await screen.findByText("Catalog");
+
+    expect(titleElement).toBeInTheDocument();
+  });
+
+  it("loads and display list of products", async () => {
+    const catalogProductsList = await screen.findByTestId("catalog-products");
+
+    expect(catalogProductsList).toBeInTheDocument();
+  });
 });

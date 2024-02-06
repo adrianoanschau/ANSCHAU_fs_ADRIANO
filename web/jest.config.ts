@@ -7,7 +7,7 @@ export default {
   },
   moduleNameMapper: {
     "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/test/__ mocks __/fileMock.js",
-    "^@App/(.*)$": "<rootDir>/src/$1",
+    "^@/mocks/(.*)$": ["<rootDir>/src/test/__mocks__/$1"],
     "^@/components/(.*)$": ["<rootDir>/src/components/$1"],
     "^@/contexts/(.*)$": ["<rootDir>/src/contexts/$1"],
     "^@/hooks/(.*)$": ["<rootDir>/src/hooks/$1"],

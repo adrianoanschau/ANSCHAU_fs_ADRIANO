@@ -1,22 +1,6 @@
 version: '3.5'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: spring-app-demo
-    env_file:
-      - .env
-    ports:
-      - ${SERVER_PORT}:${SERVER_PORT}
-    depends_on:
-      - db
-    volumes:
-      - ./:/app/
-    networks:
-      - api-net
-
   db:
     image: postgres:15
     restart: always
@@ -30,8 +14,6 @@ services:
       - appdata:/var/lib/postgresql/data
     ports:
       - '5432:5432'
-    networks:
-      - api-net
 
   redis:
     container_name: redis
@@ -39,10 +21,6 @@ services:
     image: redis
     ports:
       - '6379:6379'
-    networks:
-      - api-net
 
-networks:
-  api-net:
 volumes:
   appdata:

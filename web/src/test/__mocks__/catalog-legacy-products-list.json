@@ -1,0 +1,84 @@
+{
+  "list": [
+    {
+      "id": "1",
+      "name": "Generic Soft Chair",
+      "brand": "Wiza, Dooley and Pagac",
+      "price": 689.9,
+      "oldPrice": 739.9,
+      "suppliers": []
+    },
+    {
+      "id": "2",
+      "name": "Small Granite Bacon",
+      "brand": "Schmidt, Luettgen and Cruickshank",
+      "price": 896.9,
+      "oldPrice": 946.9,
+      "suppliers": []
+    },
+    {
+      "id": "3",
+      "name": "Incredible Steel Chair",
+      "brand": "Hickle, Grady and Towne",
+      "price": 126.9,
+      "oldPrice": 176.9,
+      "suppliers": []
+    },
+    {
+      "id": "4",
+      "name": "Generic Plastic Shoes",
+      "brand": "Lueilwitz - Morar",
+      "price": 842.9,
+      "oldPrice": 892.9,
+      "suppliers": []
+    },
+    {
+      "id": "5",
+      "name": "Intelligent Bronze Chicken",
+      "brand": "King, Streich and Will",
+      "price": 652.9,
+      "oldPrice": 702.9,
+      "suppliers": []
+    },
+    {
+      "id": "6",
+      "name": "Awesome Metal Bacon",
+      "brand": "Kris LLC",
+      "price": 1000.9,
+      "oldPrice": 1050.9,
+      "suppliers": []
+    },
+    {
+      "id": "7",
+      "name": "Recycled Fresh Hat",
+      "brand": "Herman - Stehr",
+      "price": 170.9,
+      "oldPrice": 220.9,
+      "suppliers": []
+    },
+    {
+      "id": "8",
+      "name": "Oriental Concrete Sausages",
+      "brand": "Rippin Inc",
+      "price": 840.9,
+      "oldPrice": 890.9,
+      "suppliers": []
+    },
+    {
+      "id": "9",
+      "name": "Handcrafted Cotton Computer",
+      "brand": "Grimes, Klocko and Towne",
+      "price": 581.9,
+      "oldPrice": 631.9,
+      "suppliers": []
+    },
+    {
+      "id": "10",
+      "name": "Tasty Steel Chips",
+      "brand": "Wunsch - Swift",
+      "price": 744.9,
+      "oldPrice": 794.9,
+      "suppliers": []
+    }
+  ]
+}
